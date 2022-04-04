@@ -1,0 +1,68 @@
+/* font-family: 'Bangers', cursive;
+font-family: 'Comfortaa', cursive;
+font-family: 'Rubik Puddles', cursive; */
+
+* {
+    font-family: 'Comfortaa', cursive;
+}
+
+.hero {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
+    background-color: skyblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3% 0;
+}
+
+.header {
+    font-family: 'Bangers', cursive;
+    font-size: 70px;
+}
+
+.card-body {
+    padding: 12px;
+}
+
+.btn {
+    border: 1px solid black;
+    padding: 3px;
+    margin: 3px;
+    background-color: skyblue;
+    color: white;
+    font-size: 1.2rem;
+}
+
+body {
+    /* background-image: linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%); */
+    /* background-image: radial-gradient( circle farthest-corner at -4.5% 34.3%,  rgba(13,20,174,1) 0%, rgba(243,165,140,1) 90% ); */
+    background: #abbaab;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #ffffff, #abbaab);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ffffff, #abbaab); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+main {
+    margin: 1% 0;
+}
+
+#cards-container {
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.card-group {
+    margin: 2%;
+}
+
+.uv-light {
+    color: green;
+}
+
+.uv-moderate {
+    color: orange;
+}
+
+.uv-severe {
+    color: red;
+}
