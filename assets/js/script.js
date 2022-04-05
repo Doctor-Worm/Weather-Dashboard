@@ -1,6 +1,17 @@
 var cityInputEl = document.querySelector("#city");
 var searchFormEl = document.querySelector("#search-form");
 var cityContainerEl = document.querySelector("#cards-container");
+var historyEl = document.querySelector("#search-history");
+
+
+var searchHistory = function(city) {
+    // create a container for each repo
+    var searchbtn = document.createElement("button");
+    searchbtn.classList = "search-btn list-item flex-row justify-content-center align-center";
+    searchbtn.innerText = city;
+
+    historyEl.appendChild(searchbtn);
+};
 
 
 // function to turn the city name into geo locations: latitude and longitude
@@ -229,10 +240,31 @@ var formSubmitHandler = function(event) {
     if (city) {
         getCityCoordinates(city);
         cityInputEl.value = "";
+        searchHistory(city);
     } else {
         alert("Please enter an existing city.");
     }
 };
 
 
+var historyCoordinates = function(event) {
+    var city = event.target.innerText.trim();
+    console.log(city);
+
+    // grab cards
+    var cards = document.getElementsByClassName('card');
+    // console.log(cards);
+
+    // remove old cards
+    while(cards.length > 0) {
+        console.log(cards);
+        cards[0].remove();
+    }
+
+    getCityCoordinates(city);
+};
+
+
 searchFormEl.addEventListener("submit", formSubmitHandler);
+// when search button is clicked, run the get coordinate function. need to clear screen first.
+historyEl.addEventListener("click", historyCoordinates);

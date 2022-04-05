@@ -66,3 +66,13 @@ main {
 .uv-severe {
     color: red;
 }
+
+.search-btn {
+    border: 1px solid black;
+    padding: 3px;
+    margin: 3px;
+    background-color: skyblue;
+    color: white;
+    font-size: 1.2rem;
+    width: 80%;
+}
