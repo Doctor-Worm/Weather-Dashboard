@@ -40,7 +40,6 @@ var getCityCoordinates = function(city) {
         }
     })
     .catch(function(error) {
-        // Notice this '.catch()' getting chained onto the end of the '.then()' method
         alert("Unable to connect to OpenWeather");
     });
 };
@@ -63,7 +62,6 @@ var getWeather = function(lat, lon, city, state) {
         }
     })
     .catch(function(error) {
-        // Notice this '.catch()' getting chained onto the end of the '.then()' method
         alert("Unable to connect to OpenWeather");
     });
 };
@@ -273,5 +271,3 @@ searchFormEl.addEventListener("submit", formSubmitHandler);
 
 // when search button is clicked, run the get coordinate function. need to clear screen first.
 $("#search-history").on("click", "button", historyCoordinates);
-
-// historyEl.addEventListener("click", historyCoordinates);
