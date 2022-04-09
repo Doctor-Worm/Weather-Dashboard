@@ -18,7 +18,7 @@ var searchHistory = function(city) {
 // function to turn the city name into geo locations: latitude and longitude
 var getCityCoordinates = function(city) {
     // format the Open Weather api Url
-    var geoUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + ",US&limit=1&appid=29db0ef107ead191a2ff9df42aa1bce2"
+    var geoUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + ",US&limit=1&appid=29db0ef107ead191a2ff9df42aa1bce2"
     
     // make a request to the url
     fetch(geoUrl)
