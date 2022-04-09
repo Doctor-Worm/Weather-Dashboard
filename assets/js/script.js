@@ -1,6 +1,7 @@
 var cityInputEl = document.querySelector("#city");
 var searchFormEl = document.querySelector("#search-form");
 var cityContainerEl = document.querySelector("#cards-container");
+var futureContainerEl = document.querySelector("#future-cards");
 var historyEl = document.querySelector("#search-history");
 
 
@@ -25,7 +26,6 @@ var getCityCoordinates = function(city) {
         // request was successful
         if (response.ok) {
         response.json().then(function(data) {
-            console.log(data, city);
             var lat = data[0].lat;
             var lon = data[0].lon;
             var state = data[0].state;
@@ -55,8 +55,6 @@ var getWeather = function(lat, lon, city, state) {
         // request was successful
         if (response.ok) {
         response.json().then(function(data) {
-            console.log(data);
-            console.log(city);
             currentWeatherCard(data, city, state);
             futureWeatherCard(data, city, state);
         });
@@ -74,8 +72,14 @@ var getWeather = function(lat, lon, city, state) {
 var currentWeatherCard = function(data, city, state) {
     // create city card
     var cityEl = document.createElement("div");
-    cityEl.classList = "card col-5 col-md-3 col-lg-2 shadow border border-dark card-group";
+    cityEl.classList = "card w-100 shadow border border-dark";
+    cityEl.setAttribute('id', 'weather');
     
+    var cardTitleEl = document.createElement("h5");
+    cardTitleEl.classList = "card-header";
+    cardTitleEl.textContent = city + ", " + state;
+    cityEl.appendChild(cardTitleEl);
+
     // get image icon from data and append to card
     var imgEl = document.createElement("img");
     var icon = data.current.weather[0].icon;
@@ -89,9 +93,7 @@ var currentWeatherCard = function(data, city, state) {
 
     cityEl.appendChild(cardBodyEl);
 
-    var cardTitleEl = document.createElement("h5");
-    cardTitleEl.classList = "card-title";
-    cardTitleEl.textContent = city + ", " + state;
+    
 
     var dateEl = document.createElement("p");
     dateEl.classList = "card-text";
@@ -99,7 +101,7 @@ var currentWeatherCard = function(data, city, state) {
     var momentDate = moment.unix(unix).format("dddd, MMMM Do, LT");
     dateEl.textContent = momentDate;
 
-    cardBodyEl.appendChild(cardTitleEl);
+    
     cardBodyEl.appendChild(dateEl);
 
     createCardList(data, cityEl);
@@ -149,12 +151,17 @@ var createCardList = function(data, cityEl) {
         
         
 var futureWeatherCard = function (data, city, state) {
+    var title = document.createElement('h3');
+    title.innerText = "5-Day Forecast:"
+    title.classList = "col-12 header subtitle";
+    title.id = 'title';
+    futureContainerEl.appendChild(title);
     // loop through array of future dates to get data
     for (var i = 1; i < 6; i++) {
-        console.log(data.daily[i].dt);
     // create future city card
     var futureCard = document.createElement("div");
     futureCard.classList = "card col-5 col-md-3 col-lg-2 shadow border border-dark card-group";
+    futureCard.setAttribute('id', 'weather');
     
     // get image icon from data and append to card
     var imgEl = document.createElement("img");
@@ -186,7 +193,7 @@ var futureWeatherCard = function (data, city, state) {
 
    
     // append the card to the main body
-    cityContainerEl.appendChild(futureCard);
+    futureContainerEl.appendChild(futureCard);
     };
 };
 
@@ -231,13 +238,15 @@ var futureCardList = function(data, futureCard, i) {
 // function the takes user inputed data and checks it with APIs
 var formSubmitHandler = function(event) {
     event.preventDefault();
-    // console.log(event.target)
 
     // get name of user inputed city
     var city = cityInputEl.value.trim();
-    // console.log(city);
 
     if (city) {
+        // grab cards & header, then remove
+        var weatherCards = document.querySelectorAll('#weather');
+        $(weatherCards).remove();
+        $('#title').remove();
         getCityCoordinates(city);
         cityInputEl.value = "";
         searchHistory(city);
@@ -248,23 +257,21 @@ var formSubmitHandler = function(event) {
 
 
 var historyCoordinates = function(event) {
+    var place = event.target;
     var city = event.target.innerText.trim();
-    console.log(city);
 
-    // grab cards
-    var cards = document.getElementsByClassName('card');
-    // console.log(cards);
-
-    // remove old cards
-    while(cards.length > 0) {
-        console.log(cards);
-        cards[0].remove();
-    }
+    // grab cards & header, then remove
+    var weatherCards = document.querySelectorAll('#weather');
+    $(weatherCards).remove();
+    $('#title').remove();
 
     getCityCoordinates(city);
 };
 
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
+
 // when search button is clicked, run the get coordinate function. need to clear screen first.
-historyEl.addEventListener("click", historyCoordinates);
+$("#search-history").on("click", "button", historyCoordinates);
+
+// historyEl.addEventListener("click", historyCoordinates);
